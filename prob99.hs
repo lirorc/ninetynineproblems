@@ -34,3 +34,18 @@ listreverse lst =
 
 palindrome lst =
   lst == (listreverse lst)
+
+
+-- Credit josuf107 @ r/haskellquestions
+-- Types means typing more, no?
+data Tree a = Tree [Tree a] | Atom a deriving Show
+flatten (Tree []) = []
+flatten (Tree (x:xs)) = flatten x ++ flatten (Tree xs)
+flatten (Atom a) = [a]
+-- eg. flatten (Tree [Atom 2, Atom 5, Tree [Atom 5, Atom 3]])
+
+compress' l1 l2
+  | l1 == [] = l2
+  | elem (car l1) l2 = compress' (cdr l1) l2
+  | otherwise = compress' (cdr l1) (l2 ++ [car l1])
+compress lst = compress' lst []
