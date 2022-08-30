@@ -80,5 +80,5 @@ pack l = pack' l []
 -- P10
 encode' [] = []
 encode' (l:ls) =
-  [[(length l), (car l)]] ++ (encode' ls)
+  [((length l), (car l))] ++ (encode' ls)
 encode lst = encode' (pack lst)
