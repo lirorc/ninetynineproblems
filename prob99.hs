@@ -82,3 +82,23 @@ encode' [] = []
 encode' (l:ls) =
   [((length l), (car l))] ++ (encode' ls)
 encode lst = encode' (pack lst)
+
+-- P12
+uncompress' [] l = l
+uncompress' (x:xs) l =
+  uncompress' xs (l ++ (take (head x) (repeat (last x))))
+uncompress lst = uncompress' lst []
+
+-- P13
+encodedirect' [] lst = lst
+encodedirect' (x:xs) [] = encodedirect' xs [(1,x)]
+encodedirect' (x:xs) lst@(l:ls) =
+  if x == (snd l)
+    then encodedirect' xs ((1+(fst l) , (snd l)) : ls)
+    else encodedirect' xs ((1,x) : lst)
+encodedirect lst = reverse (encodedirect' lst [])
+
+-- P14
+dupli' [] lst = lst
+dupli' (x:xs) lst = dupli' xs (x:x:lst)
+dupli lst = reverse (dupli' lst [])
