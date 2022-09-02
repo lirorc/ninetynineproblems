@@ -24,6 +24,7 @@ findlast2 (x:[]) = [x]
 findlast2 (x1:x2:[]) = [x1,x2]
 findlast2 (x:xs) = findlast2 xs
 
+-- nth lst n = lst !! (n-1)
 -- P3
 nth lst n =
   if n == 1
@@ -102,3 +103,11 @@ encodedirect lst = reverse (encodedirect' lst [])
 dupli' [] lst = lst
 dupli' (x:xs) lst = dupli' xs (x:x:lst)
 dupli lst = reverse (dupli' lst [])
+
+-- P15
+repli' [] n l = l
+repli' (x:xs) n l = repli' xs n (l ++ (take n (repeat x)))
+repli xs n = repli' xs n []
+
+-- P16
+drop xs n = [nth xs i | i <- [1..(length xs)], (mod i n /= 0)]
