@@ -111,3 +111,18 @@ repli xs n = repli' xs n []
 
 -- P16
 drop xs n = [nth xs i | i <- [1..(length xs)], (mod i n /= 0)]
+
+-- P17
+split' :: [a] -> [a] -> Integer -> [[a]]
+split' [] l n = [l]
+split' xs l2 0 = [l2, xs]
+split' (x:xs) l2 n = split' xs (l2++[x]) (n-1)
+split xs n = split' xs [] n
+
+-- P18
+slice' :: [a] -> [a] -> Integer -> Integer -> [a]
+slice' [] l n1 n2 = l
+slice' xs l n 0 = l
+slice' (x:xs) l 0 n = slice' xs (x:l) 0 (n-1)
+slice' (x:xs) l n1 n2 = slice' xs l (n1-1) (n2-1)
+slice xs n1 n2 = reverse (slice' xs [] (n1-1) n2)
